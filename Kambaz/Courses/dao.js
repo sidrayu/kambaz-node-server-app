@@ -12,8 +12,21 @@ export function findCoursesForEnrolledUser(userId) {
 }
 export function createCourse(course) {
   const newCourse = { ...course, _id: uuidv4() };
-  console.log("Dao newCourse1", newCourse);
   Database.courses = [...Database.courses, newCourse];
-  console.log("Dao newCourse2", newCourse);
   return newCourse;
 }
+export function deleteCourse(courseId) {
+  const { courses, enrollments } = Database;
+  Database.courses = courses.filter((course) => course._id !== courseId);
+  Database.enrollments = enrollments.filter(
+    (enrollment) => enrollment.course !== courseId
+);}
+
+export function updateCourse(courseId, courseUpdates) {
+  const { courses } = Database;
+  const course = courses.find((course) => course._id === courseId);
+  Object.assign(course, courseUpdates);
+  return course;
+}
+
+
