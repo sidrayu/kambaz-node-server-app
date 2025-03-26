@@ -17,11 +17,22 @@ export default function CourseRoutes(app) {
     const status = assignmentsDao.updateAssignment(courseId, assignmentUpdates);
     res.send(status);
   });
-
   app.get("/api/courses/:courseId/assignments", (req, res) => {
     const { courseId } = req.params;
     const assignments = assignmentsDao.findAssignmentsForCourse(courseId);
     res.json(assignments);
+  });
+
+  app.get("/api/courses/assignments:assignmentId", (req, res) => {
+    const { assignmentId } = req.params;
+    const assignment = assignmentsDao.findAssignmentById(assignmentId);
+    res.json(assignment);
+  });
+
+  app.delete("/api/courses/assignments/:assignmentId", (req, res) => {
+    const { assignmentId } = req.params;
+    const status = assignmentsDao.deleteAssignment(assignmentId);
+    res.send(status);
   });
 
 

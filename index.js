@@ -8,7 +8,6 @@ import "dotenv/config";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
 
-
 const app = express()
 app.use(cors({
     credentials: true,
