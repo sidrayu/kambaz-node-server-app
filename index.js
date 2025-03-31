@@ -10,37 +10,61 @@ import ModuleRoutes from "./Kambaz/Modules/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 
 const app = express()
-// app.use(cors({
-//     credentials: true,
-//     origin: process.env.NETLIFY_URL || "http://localhost:5173",
-//   })
-//  );
- app.use(cors({ origin: true, credentials: true }));
 
- const sessionOptions = {
-    secret: process.env.SESSION_SECRET || "kambaz",
-    resave: false,
-    saveUninitialized: false,
-  };
-  if (process.env.NODE_ENV !== "development") {
-    sessionOptions.proxy = true;
-    sessionOptions.cookie = {
-      sameSite: "none",
-      secure: true,
-      domain: process.env.NODE_SERVER_DOMAIN,
-    };
-  }
-app.use(session(sessionOptions));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
-  
-UserRoutes(app);
-CourseRoutes(app);
-EnrollmentRoutes(app);
-Lab5(app)
-ModuleRoutes(app);
-Hello(app)
+
+app.get('/', (req, res) => {
+  res.send('Root is working');
+});
+
+app.get('/hello', (req, res) => {
+  res.send('Hello from test mode');
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+
+
+
+
+
+// app.use(cors({
+//     credentials: true,
+//     origin: process.env.NETLIFY_URL || "http://localhost:5173",
+//   })
+//  );
+
+//  app.use(cors({ origin: true, credentials: true }));
+
+//  const sessionOptions = {
+//     secret: process.env.SESSION_SECRET || "kambaz",
+//     resave: false,
+//     saveUninitialized: false,
+//   };
+//   if (process.env.NODE_ENV !== "development") {
+//     sessionOptions.proxy = true;
+//     sessionOptions.cookie = {
+//       sameSite: "none",
+//       secure: true,
+//       domain: process.env.NODE_SERVER_DOMAIN,
+//     };
+//   }
+// app.use(session(sessionOptions));
+// app.use(express.json());
+  
+// UserRoutes(app);
+// CourseRoutes(app);
+// EnrollmentRoutes(app);
+// Lab5(app)
+// ModuleRoutes(app);
+// Hello(app)
+
+// const PORT = process.env.PORT || 4000;
+// app.listen(PORT, '0.0.0.0', () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
