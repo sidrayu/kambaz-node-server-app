@@ -11,30 +11,11 @@ import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 
 const app = express()
 
-// app.use(cors({ origin: true, credentials: true }));
-// app.use(express.json());
-
-// app.get('/', (req, res) => {
-//   res.send('Root is working');
-// });
-
-// app.get('/hello', (req, res) => {
-//   res.send('Hello from test mode');
-// });
-
-// const PORT = process.env.PORT || 4000;
-// app.listen(PORT, '0.0.0.0', () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-// app.use(cors({
-//     credentials: true,
-//     origin: process.env.NETLIFY_URL || "http://localhost:5173",
-//   })
-//  );
-
- app.use(cors({ origin: true, credentials: true }));
-
+app.use(cors({
+    credentials: true,
+    origin: process.env.NETLIFY_URL || "http://localhost:5173",
+  })
+ );
  const sessionOptions = {
     secret: process.env.SESSION_SECRET || "kambaz",
     resave: false,
