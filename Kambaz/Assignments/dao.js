@@ -20,10 +20,10 @@ export function updateAssignment(assignment) {
 
 export function findAssignmentsForCourse(courseId) {
   const { assignments } = Database;
-  return assignments.filter((assignments) => assignments.course === courseId);
+  return assignments.filter((assignment) => assignment.courseId === courseId);
 }
 
-export function findAssignmentById  (assignmentId) {
+export function findAssignmentById(assignmentId) {
   const { assignments } = Database;
   return assignments.find((assignment) => assignment._id === assignmentId);
 }
