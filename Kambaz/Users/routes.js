@@ -12,8 +12,16 @@ export default function UserRoutes(app) {
   };
   app.post("/api/users/current/courses", createCourse);
 
-  const createUser = (req, res) => { };
-  const deleteUser = (req, res) => { };
+  const createUser = async (req, res) => {
+    const user = await dao.createUser(req.body);
+    res.json(user);
+  };
+
+  const deleteUser = async (req, res) => {
+    const status = await dao.deleteUser(req.params.userId);
+    res.json(status);
+
+  };
   const findAllUsers = async (req, res) => {
     const { role, name } = req.query;
     if (role) {
@@ -30,8 +38,12 @@ export default function UserRoutes(app) {
     res.json(users);
   };
 
-  const findUserById = (req, res) => { };
-  const signup = async (req, res) => { 
+  const findUserById = async (req, res) => {
+    const user = await dao.findUserById(req.params.userId);
+    res.json(user);
+
+  };
+  const signup = async (req, res) => {
     const user = await dao.findUserByUsername(req.body.username);
     if (user) {
       res.status(400).json(
@@ -42,7 +54,7 @@ export default function UserRoutes(app) {
     req.session["currentUser"] = currentUser;
     res.json(currentUser);
   };
-  const signin = async (req, res) => { 
+  const signin = async (req, res) => {
     const { username, password } = req.body;
     console.log("username", username);
     console.log("password", password);
@@ -65,16 +77,20 @@ export default function UserRoutes(app) {
 
     res.json(currentUser);
   };
-  const updateUser = (req, res) => {
+  const updateUser = async (req, res) => {
     const userId = req.params.userId;
     const userUpdates = req.body;
-    dao.updateUser(userId, userUpdates);
-    const currentUser = dao.findUserById(userId);
-    req.session["currentUser"] = currentUser;
+    console.log("userId", userId);
+    console.log("userUpdates", userUpdates);
+    await dao.updateUser(userId, userUpdates);
+    const currentUser = req.session["currentUser"];
+    if (currentUser && currentUser._id === userId) {
+      req.session["currentUser"] = { ...currentUser, ...userUpdates };
+    } 
     res.json(currentUser);
 
-   };
-   const findCoursesForEnrolledUser = (req, res) => {
+  };
+  const findCoursesForEnrolledUser = (req, res) => {
     let { userId } = req.params;
     if (userId === "current") {
       const currentUser = req.session["currentUser"];
