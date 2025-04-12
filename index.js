@@ -1,4 +1,5 @@
 import express from 'express'
+import mongoose from "mongoose";
 import Hello from "./Hello.js"
 import Lab5 from "./Lab5/index.js";
 import cors from "cors";
@@ -8,6 +9,10 @@ import "dotenv/config";
 import CourseRoutes from "./Kambaz/Courses/routes.js";
 import ModuleRoutes from "./Kambaz/Modules/routes.js";
 import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
+
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz"
+mongoose.connect(CONNECTION_STRING);
+
 
 const app = express()
 
