@@ -6,9 +6,9 @@ export default function EnrollmentRoutes(app) {
     res.send(newEnrollment);
   });
 
-  app.get("/api/courses/:courseId/users/:userId/enrollments", (req, res) => {
+  app.get("/api/courses/:courseId/users/:userId/enrollments", async (req, res) => {
     const { courseId, userId } = req.params;
-    const enrollment = dao.findEnrollment(courseId, userId);
+    const enrollment = await dao.findEnrollment(courseId, userId);
     res.json(enrollment);
   });
 
@@ -18,9 +18,9 @@ export default function EnrollmentRoutes(app) {
     res.send(status);
   });
 
-  app.get("/api/courses/users/:userId/enrollments", (req, res) => {
+  app.get("/api/courses/users/:userId/enrollments", async (req, res) => {
     const { userId } = req.params;
-    const enrollments = dao.findEnrollmentsForUser(userId);
+    const enrollments = await dao.findEnrollmentsForUser(userId);
     res.json(enrollments);
   });
 }

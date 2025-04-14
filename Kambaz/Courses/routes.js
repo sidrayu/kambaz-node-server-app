@@ -62,6 +62,18 @@ export default function CourseRoutes(app) {
   app.delete("/api/courses/:courseId", async (req, res) => {
     const { courseId } = req.params;
     const status = await dao.deleteCourse(courseId);
+    const enrollments = await enrollmentsDao.findEnrollmentsForCourse(courseId);
+    for (const enrollment of enrollments) {
+      await enrollmentsDao.unenrollUserFromCourse(enrollment.user, courseId);
+    }
+    // const assignments = await assignmentsDao.findAssignmentsForCourse(courseId);
+    // for (const assignment of assignments) {
+    //   await assignmentsDao.deleteAssignment(assignment._id);
+    // }
+    const modules = await modulesDao.findModulesForCourse(courseId);
+    for (const module of modules) {
+      await modulesDao.deleteModule(module._id);
+    }
     res.send(status);
   });
   app.put("/api/courses/:courseId", async (req, res) => {

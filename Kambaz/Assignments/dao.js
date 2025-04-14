@@ -18,7 +18,7 @@ export function updateAssignment(assignment) {
     return assignmentToUpdate;
 }   
 
-export function findAssignmentsForCourse(courseId) {
+export async function findAssignmentsForCourse(courseId) {
   const { assignments } = Database;
   return assignments.filter((assignment) => assignment.courseId === courseId);
 }
