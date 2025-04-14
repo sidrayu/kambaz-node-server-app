@@ -20,14 +20,3 @@ const assignmentSchema = new mongoose.Schema(
 );
 
 export default assignmentSchema;
-
-
-// "_id": "A103",
-// "courseId": "RS101",
-// "title": "Nozzle Design Project",
-// "modules": "Module 3",
-// "availableFromDate": "2025-03-01",
-// "availableUtilDate": "2025-01-01",
-// "dueDate": "2025-03-15",
-// "points": 100,
-// "description": "This assignment is about the nozzle design of the aircrafts."

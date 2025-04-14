@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export function updateModule(moduleId, moduleUpdates) {
   return model.updateOne({ _id: moduleId }, moduleUpdates);
- 
+
 }
 
 export function deleteModule(moduleId) {
