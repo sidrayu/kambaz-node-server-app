@@ -50,5 +50,5 @@ export async function findAssignmentsForCourse(courseId) {
 }
 
 export async function findAssignmentById(assignmentId) {
-  return await model.findOne({ _id: assignmentId });
+  return await model.findById({ _id: assignmentId });
 }
